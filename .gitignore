@@ -1,0 +1,6 @@
+/.idea
+.idea/
+/.idea/workspace.xml
+/target
+mavenProject.iml
+com.lsm.maven.iml
