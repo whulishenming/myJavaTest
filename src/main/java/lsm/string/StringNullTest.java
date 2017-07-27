@@ -6,7 +6,7 @@ package lsm.string;
 public class StringNullTest {
     public static void main(String[] args) {
         Integer i = null;
-        System.out.println(i.toString()); // 空指针异常
+//        System.out.println(i.toString()); // 空指针异常
         System.out.println(i + "");
         System.out.println(String.valueOf(i));
     }

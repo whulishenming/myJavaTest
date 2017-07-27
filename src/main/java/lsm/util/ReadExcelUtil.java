@@ -93,7 +93,10 @@ public class ReadExcelUtil {
 
     @Test
     public void test() throws Exception {
-        List<Map<String, String>> mapList = readExcel("C:\\Users\\shenming.li\\Desktop\\import.xls");
+        long start = System.currentTimeMillis();
+        List<Map<String, String>> mapList = readExcel("C:\\Users\\shenming.li\\Desktop\\111.xlsx");
+        long end = System.currentTimeMillis();
+        System.out.println(start - end);
         for (Map<String, String> stringStringMap : mapList) {
             for (Map.Entry<String, String> stringStringEntry : stringStringMap.entrySet()) {
                 System.out.println(stringStringEntry.getKey() + " : " + stringStringEntry.getValue());

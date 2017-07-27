@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 public class TestConcurrentHashMap {
     public static final int MAX_SEGMENTS = 1 << 16;
     public static void main(String[] args) {
-        Executor
+//        Executor
         System.out.println(MAX_SEGMENTS);
 //        UNSAFE.
     }
