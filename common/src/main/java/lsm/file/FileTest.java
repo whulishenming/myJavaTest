@@ -11,12 +11,14 @@ import java.io.*;
  */
 public class FileTest {
 
-    public String file2byte(String filePath) {
+    public String file2byte(String filePath) throws IOException {
         String buffer = null;
+        FileInputStream fis = null;
+        ByteArrayOutputStream bos = null;
         try {
             File file = new File(filePath);
-            FileInputStream fis = new FileInputStream(file);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            fis = new FileInputStream(file);
+            bos = new ByteArrayOutputStream();
             byte[] b = new byte[1024];
             int n;
             while ((n = fis.read(b)) != -1) {
@@ -29,6 +31,9 @@ public class FileTest {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            fis.close();
+            bos.close();
         }
         return buffer;
     }
@@ -71,7 +76,7 @@ public class FileTest {
     }
 
     @Test
-    public void test(){
+    public void test() throws IOException {
         String buffer = file2byte("C:\\Users\\za-lishenming\\Downloads\\P441704001774.tiff");
 
         byte2File(buffer, "d:\\Users\\za-lishenming\\Downloads", "33.tiff");
