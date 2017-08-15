@@ -20,34 +20,15 @@ public class ChannelTest {
             // 打开FileChannel
             fromFile = new RandomAccessFile("D:\\nio\\from.txt","rw");
             FileChannel fromChannel = fromFile.getChannel();
+            toFile = new RandomAccessFile("D:\\nio\\to.txt","rw");
+            FileChannel toChannel = toFile.getChannel();
             // 从FileChannel读取数据
             ByteBuffer readBuffer = ByteBuffer.allocate(24);
-            StringBuilder stringBuilder = new StringBuilder();
 
             while (fromChannel.read(readBuffer) != -1){
                 readBuffer.flip();
-                while(readBuffer.hasRemaining()) {
-                    stringBuilder.append((char)readBuffer.get());
-                }
+                toChannel.write(readBuffer);
                 readBuffer.compact();
-            }
-
-            byte[] bytes = stringBuilder.toString().getBytes();
-
-            int channelSize = (int) fromChannel.size();
-            int stringLength = stringBuilder.length();
-            // channelSize, stringLength, bytes.length 中由于字符编码的问题，比如汉字等等， bytes.length是真正需要的BufferSize
-            log.info("channelSize:{}, stringLength:{}, bytesLength:{}", channelSize, stringLength, bytes.length);
-
-            // 向FileChannel写数据
-            ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
-            writeBuffer.clear();
-            writeBuffer.put(bytes);
-            writeBuffer.flip();
-            toFile = new RandomAccessFile("D:\\nio\\to.txt","rw");
-            FileChannel toChannel = toFile.getChannel();
-            while(writeBuffer.hasRemaining()) {
-                toChannel.write(writeBuffer);
             }
 
         } catch (IOException e) {
