@@ -1,4 +1,4 @@
-package lsm.java8;
+package com.lsm.testJava8;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

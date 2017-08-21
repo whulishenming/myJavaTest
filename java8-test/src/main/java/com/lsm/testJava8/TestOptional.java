@@ -1,8 +1,8 @@
-package lsm.java8;
+package com.lsm.testJava8;
 
+import com.lsm.testJava8.domain.OptionDomain;
+import com.lsm.testJava8.domain.User;
 import lombok.extern.slf4j.Slf4j;
-import lsm.domain.OptionDomain;
-import lsm.domain.User;
 import org.junit.Test;
 
 import java.util.Arrays;

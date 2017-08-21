@@ -1,4 +1,4 @@
-package lsm.domain;
+package com.lsm.testJava8.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
