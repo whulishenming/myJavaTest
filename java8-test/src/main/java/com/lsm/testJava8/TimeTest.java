@@ -9,7 +9,7 @@ import java.util.Date;
 import static java.time.temporal.TemporalAdjusters.*;
 
 @Slf4j
-public class TestTime {
+public class TimeTest {
 
     /**
      * LocalDate代表一个IOS格式(yyyy-MM-dd)的日期

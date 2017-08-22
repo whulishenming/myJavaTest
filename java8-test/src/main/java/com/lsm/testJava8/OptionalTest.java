@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Slf4j
-public class TestOptional {
+public class OptionalTest {
 
     private OptionDomain domain1 = null;
 
@@ -28,8 +28,15 @@ public class TestOptional {
         OptionDomain newDomain2 = optionDomain.orElseGet(() -> getOptionDomainFromDataBase());
         // 存在才对它做点什么
         optionDomain.ifPresent(System.out::println);
+        // 使用filter 剔除特定的值
+        optionDomain.filter((domain) -> "string".equals(domain.getStringDomain()))
+                .ifPresent((x) -> System.out.println("ok"));
         // map
-        Integer size = optionDomain.map(domain -> domain.getUser()).map(u -> u.getLikes()).map(list -> list.size()).orElse(0);
+        Integer size = optionDomain
+                .map(domain -> domain.getUser())
+                .map(u -> u.getLikes())
+                .map(list -> list.size())
+                .orElse(0);
         log.info("optionDomain:{}", newDomain.getStringDomain());
         log.info("optionDomain:{}", newDomain2.getStringDomain());
         log.info("size:{}", size);
