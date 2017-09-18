@@ -12,8 +12,9 @@
     <modules>
 		<module>common</module>
 		<module>java8-test</module>
+        <module>jsoup-test</module>
         <!--
-        <module>java8-test</module>
+        <module>jsoup-test</module>
         <module></module>-->
 		
     </modules>
