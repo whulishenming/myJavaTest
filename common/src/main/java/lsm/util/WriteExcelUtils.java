@@ -16,6 +16,8 @@ public class WriteExcelUtils {
 
     public static void writeExcel(Map<String, String> cellsMap, String filePath, String sheetName) throws Exception {
 
+        FileOutputStream fos = new FileOutputStream(new File(filePath));
+
         //创建工作簿
         XSSFWorkbook workbook = new XSSFWorkbook();
 
@@ -34,12 +36,10 @@ public class WriteExcelUtils {
             XSSFCell cellValue = row.createCell(1);
             //给单元格赋值
             cellValue.setCellValue(entry.getValue());
-
-            //创建输出流
-            FileOutputStream fos = new FileOutputStream(new File(filePath));
-            workbook.write(fos);
-            workbook.close();
-            fos.close();
         }
+        //创建输出流
+        workbook.write(fos);
+        workbook.close();
+        fos.close();
     }
 }
