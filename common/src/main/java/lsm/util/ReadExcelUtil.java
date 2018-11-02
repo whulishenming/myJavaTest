@@ -58,10 +58,10 @@ public class ReadExcelUtil {
         if (cell == null){
             return "";
         }
-        if (cell.getCellType() == cell.CELL_TYPE_BOOLEAN) {
+        if (CellType.BOOLEAN.equals(cell.getCellTypeEnum())) {
 
             return String.valueOf(cell.getBooleanCellValue());
-        } else if (cell.getCellType() == cell.CELL_TYPE_NUMERIC) {
+        } else if (CellType.NUMERIC.equals(cell.getCellTypeEnum())) {
             // 处理日期
             if (HSSFDateUtil.isCellDateFormatted(cell)) {
                 SimpleDateFormat sdf = null;
@@ -77,12 +77,12 @@ public class ReadExcelUtil {
                 return df.format(cell.getNumericCellValue());
             }
             /*return String.valueOf(new BigDecimal(cell.getNumericCellValue())).trim();*/
-        } else  if (cell.getCellType() == cell.CELL_TYPE_FORMULA){
+        } else  if (CellType.FORMULA.equals(cell.getCellTypeEnum())){
             //当单元格为公式时，特殊处理
             try {
                 return String.valueOf(cell.getStringCellValue()).trim();
             } catch (IllegalStateException e) {
-                cell.setCellType(cell.CELL_TYPE_NUMERIC);
+                cell.setCellType(CellType.NUMERIC);
                 return String.valueOf(cell.getNumericCellValue()).trim();
             }
         }else{
@@ -93,12 +93,15 @@ public class ReadExcelUtil {
 
     @Test
     public void test() throws Exception {
-        List<Map<String, String>> mapList = readExcel("C:\\Users\\shenming.li\\Desktop\\import.xls");
+        List<Map<String, String>> mapList = readExcel("/Users/lishenming/Downloads/无标题.xlsx");
+        Set<String> set = new HashSet<>();
         for (Map<String, String> stringStringMap : mapList) {
             for (Map.Entry<String, String> stringStringEntry : stringStringMap.entrySet()) {
+                set.add(stringStringEntry.getValue());
                 System.out.println(stringStringEntry.getKey() + " : " + stringStringEntry.getValue());
             }
         }
+        System.out.println("sssss");
     }
 
 }

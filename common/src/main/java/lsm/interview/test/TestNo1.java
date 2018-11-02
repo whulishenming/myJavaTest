@@ -5,6 +5,14 @@ package lsm.interview.test;
  */
 public class TestNo1 {
     public static void main(String[] args) {
-        System.out.println(-2 >> 3);
+        int a = 10 >> 1;
+        int b = a++;
+        int c = ++a;
+        int d = b * a++;
+
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+        System.out.println(d);
     }
 }

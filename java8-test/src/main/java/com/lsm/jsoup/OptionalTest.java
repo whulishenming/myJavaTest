@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -33,9 +34,9 @@ public class OptionalTest {
                 .ifPresent((x) -> System.out.println("ok"));
         // map
         Integer size = optionDomain
-                .map(domain -> domain.getUser())
-                .map(u -> u.getLikes())
-                .map(list -> list.size())
+                .map(OptionDomain::getUser)
+                .map(User::getLikes)
+                .map(List::size)
                 .orElse(0);
         log.info("optionDomain:{}", newDomain.getStringDomain());
         log.info("optionDomain:{}", newDomain2.getStringDomain());

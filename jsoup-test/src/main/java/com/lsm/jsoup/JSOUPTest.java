@@ -53,4 +53,39 @@ public class JSOUPTest {
         }
 
     }
+
+    @Test
+    public void test() throws Exception {
+        Document document = Jsoup.connect("https://nj.lianjia.com/ditiefang/li99666695s99667088/a2a3/?sug=%E5%A4%A9%E6%B6%A6%E5%9F%8E%E7%AB%99").timeout(50000).get();
+
+        Element body = document.body();
+
+        Elements elements = body.getElementsByClass("info clear");
+
+        for (Element element : elements) {
+            Elements children = element.children();
+            
+            Element titleElement = element.child(0).getAllElements().get(1);
+            String houseTitle = titleElement.text();
+            String houseHref = titleElement.attr("href");
+
+            Element addressElement = element.child(1).getAllElements().get(1);
+            String houseDesc = addressElement.text();
+
+            Element floodElement = element.child(2).getAllElements().get(1);
+            String houseFlood = floodElement.text();
+
+            Element tagElement = element.child(4).getAllElements().get(0);
+            String houseTag = tagElement.text();
+
+            Elements priceElement = element.child(5).getAllElements();
+            String totalPrice = priceElement.get(1).text();
+            String unitPrice = priceElement.get(4).text();
+
+
+            System.out.println(children);
+        }
+
+        System.out.println(elements);
+    }
 }

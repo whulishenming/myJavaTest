@@ -12,6 +12,33 @@ import java.util.function.Supplier;
 public class LambdaTest {
 
     @Test
+    public void testFunction() {
+
+        Function<Integer, Integer> times21 = new Function<Integer, Integer>() {
+            @Override public Integer apply(Integer i) {
+                return i * 2;
+            }
+        };
+
+        Function<Integer, Integer> times22 = (i -> i * 2);
+
+        Function<Integer, Integer> times2 = i -> i * 2;
+        Function<Integer, Integer> squared = i -> i * i;
+
+        System.out.println(times2.apply(4));// 8
+        System.out.println(squared.apply(4));// 16
+
+        // 先 times2 再 squared
+        System.out.println(times2.andThen(squared).apply(4));// 64
+
+        // 先 squared 再 times2
+        System.out.println(times2.compose(squared).apply(4));// 32
+
+        System.out.println(Function.identity().compose(times2).apply(4)); // 8
+
+    }
+
+    @Test
     public void testListSort() {
         List<Integer> list = Arrays.asList(10, 12, 5, 18, 6, 8, 13);
 
@@ -61,7 +88,7 @@ public class LambdaTest {
     }
 
     @Test  // R apply(T t); 从一个对象中选择/提取
-    public void testFunction() {
+    public void testFunction2() {
         List<Integer> results = deal(Arrays.asList("tsratsdf", "dsdsd", "dsdsdgahdea"), String::length);
 
         System.out.println(JSONObject.toJSONString(results));

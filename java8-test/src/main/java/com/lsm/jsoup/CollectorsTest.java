@@ -34,6 +34,12 @@ public class CollectorsTest {
         System.out.println(set);
     }
 
+    @Test
+    public void testToMap() {
+        Map<String, Dish> map = menu.stream().collect(Collectors.toMap(Dish::getName, dish -> dish));
+        System.out.println(map);
+    }
+
     @Test  //  计算流中元素的个数
     public void testCounting() {
         long howManyDishes = menu.stream().collect(Collectors.counting());
@@ -98,4 +104,5 @@ public class CollectorsTest {
 
         System.out.println(JSONObject.toJSONString(dishesByType));
     }
+
 }
