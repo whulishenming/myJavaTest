@@ -26,7 +26,7 @@ public class OptionalTest {
         // 存在即返回, 无则提供默认值
         OptionDomain newDomain = optionDomain.orElse(domain3);
         // 存在即返回, 无则由函数来产生
-        OptionDomain newDomain2 = optionDomain.orElseGet(() -> getOptionDomainFromDataBase());
+        OptionDomain newDomain2 = optionDomain.orElseGet(this::getOptionDomainFromDataBase);
         // 存在才对它做点什么
         optionDomain.ifPresent(System.out::println);
         // 使用filter 剔除特定的值

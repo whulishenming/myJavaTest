@@ -67,12 +67,37 @@ public class MapTest {
 
         map.merge("test2", "new Value", (oldValue, value) -> oldValue + "_" + value);
 
-        map.computeIfAbsent("test3", (key) -> key + "test");
+
 
         map.computeIfPresent("test4", (key, oldValue) -> key + "_" + oldValue);
 
 
         System.out.println(map1);
+
+    }
+
+    @Test
+    public void testCompute() {
+
+        Map<String, String> map = new HashMap<>(2);
+        map.put("key1", "value1");
+        map.put("key2", "value2");
+        map.put("key3", "value3");
+        map.put("key4", "value4");
+
+        String value1 = map.compute("key1", (key, oldValue) -> "new Value1");
+        String value3 = map.compute("key11", (key, oldValue) -> "new Value3");
+
+        String key2 = map.computeIfAbsent("key2", (key) -> key + "test");
+        String key21 = map.computeIfAbsent("key21", (key) -> key + "test");
+
+        String key3 = map.computeIfPresent("key3", (key, oldValue) -> key + "_" + oldValue);
+        String key31 = map.computeIfPresent("key31", (key, oldValue) -> key + "_" + oldValue);
+
+        String key4 = map.merge("key4", "new Value4", (oldValue, newValue) -> oldValue + "_" + newValue);
+        String key41 = map.merge("key41", "new Value41", (oldValue, newValue) -> oldValue + "_" + newValue);
+
+        System.out.println(map);
 
     }
 }
