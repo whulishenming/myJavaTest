@@ -1,11 +1,8 @@
 package lsm.util.excel;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ReadExcelUtils {
 
     public static <T> List<T> readExcel(String filepath, Class<T> clazz) throws Exception{
-        InputStream inputStream = new FileInputStream(new File(filepath));
-        Workbook workbook = WorkbookFactory.create(inputStream);
+        Workbook workbook = WorkbookFactory.create(new File(filepath));
         return readWorkbook(workbook, clazz);
     }
 
@@ -79,7 +75,7 @@ public class ReadExcelUtils {
     }
 
     public static void main(String[] args) throws Exception{
-        List<ExcelDomainDemo> list = readExcel("/Users/lishenming/Downloads/test.xls", ExcelDomainDemo.class);
+        List<ExcelDomainDemo> list = readExcel("/Users/lishenming/Downloads/test.xlsx", ExcelDomainDemo.class);
         System.out.println(list);
     }
 

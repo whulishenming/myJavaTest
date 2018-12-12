@@ -80,7 +80,7 @@ public class ExportExcelUtils {
                 for (Field field : fields) {
                     if (field.isAnnotationPresent(ExcelFieldAnnotation.class)) {
                         ExcelFieldAnnotation annotation = field.getAnnotation(ExcelFieldAnnotation.class);
-                        createCell(dataRow, annotation.columnIndex(), ReflectUtils.getFieldValueByName(field.getName(), data), cellStyle);
+                        createCell(dataRow, annotation.columnIndex(), ReflectUtils.getFieldValue(field.getName(), data), cellStyle);
                     }
                 }
             }

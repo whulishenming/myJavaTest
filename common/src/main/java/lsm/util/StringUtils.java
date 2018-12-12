@@ -1,5 +1,7 @@
 package lsm.util;
 
+import org.junit.Test;
+
 /**
  * @author lishenming
  * @create 2017-11-09
