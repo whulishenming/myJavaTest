@@ -27,7 +27,7 @@ public class CollectorsTest {
         System.out.println(list);
     }
 
-    @Test  //  把流中所有项目收集到一个Set，删除重复项
+     @Test  //  把流中所有项目收集到一个Set，删除重复项
     public void testToSet() {
         Set<Dish> set= menu.stream().collect(Collectors.toSet());
 

@@ -58,6 +58,8 @@ public class ExportExcelUtils {
 
     private static SXSSFWorkbook exportExcel(List<?> dataList, String sheetName) throws Exception {
         SXSSFWorkbook workbook = new SXSSFWorkbook();
+
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         // 居中显示
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setAlignment(HorizontalAlignment.CENTER);

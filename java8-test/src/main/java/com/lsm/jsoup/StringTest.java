@@ -15,11 +15,11 @@ public class StringTest {
 
     @Test
     public void test() {
-        StringJoiner joiner = new StringJoiner("&", "http://www.test.com?", "");
-        joiner.add("param1=1");
-        joiner.add("param2=2");
-        joiner.add("param3=3");
-        joiner.add("param4=4");
+        StringJoiner joiner = new StringJoiner("，", "", "。");
+        joiner.add("到发车时间后，不支持退票");
+        joiner.add("发车前60分钟以内办理退票，按票面额30%扣除手续费");
+        joiner.add("发车前60分钟（含）至120分钟办理退票，按票面额20%扣除手续费");
+        joiner.add("发车前120分钟办理退票，不收取手续费");
 
         String join = joiner.toString();
 
@@ -41,6 +41,10 @@ public class StringTest {
         merge.add("param6=6");
 
         System.out.println("merge=" + merge.toString());
+
+        boolean contains = "sasas".contains(null);
+
+        System.out.println(contains);
 
     }
 

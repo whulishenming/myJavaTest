@@ -2,6 +2,7 @@ package lsm.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -30,8 +31,10 @@ import java.util.Objects;
 public class DateUtils {
 
     public static final String YYYYMMDD = "yyyy-MM-dd";
+    public static final DateTimeFormatter YYYYMMDD_FORMATTER = DateTimeFormatter.ofPattern(YYYYMMDD);
 
     public static final String YYYYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
+    public static final DateTimeFormatter YYYYMMDDHHMMSS_FORMATTER = DateTimeFormatter.ofPattern(YYYYMMDDHHMMSS);
 
     public static Date getDateAfterDay(Date date, int day){
         Calendar calendar =Calendar.getInstance();

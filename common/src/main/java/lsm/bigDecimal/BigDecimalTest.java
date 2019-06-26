@@ -3,13 +3,16 @@ package lsm.bigDecimal;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
- * Created by za-lishenming on 2017/5/9.
- */
+ * @author lishenming
+ * @version 1.0
+ * @date 2019-04-26 16:20
+ **/
+
 public class BigDecimalTest {
-
-
     /**
      * 1. 测试构造方法
      * 2. 用String构造不会丢失精度
@@ -42,12 +45,27 @@ public class BigDecimalTest {
      */
     @Test
     public void testScale() {
-        BigDecimal num =new BigDecimal(12.345623);
+        BigDecimal num =new BigDecimal("12.345623");
+        int i = num.intValue();
         //四舍五入
         System.out.println(num.setScale(2, BigDecimal.ROUND_HALF_UP));
         //舍入趋向于零的方式
         System.out.println(num.setScale(2, BigDecimal.ROUND_DOWN));
         //舍入远离零的方式
         System.out.println(num.setScale(2, BigDecimal.ROUND_UP));
+
+        LocalTime localTime = LocalTime.parse("09:30");
+
+        System.out.println(localTime);
+
+    }
+
+    @Test
+    public void  parse() {
+        String time = "16：75";
+
+        time = time.replace("：", ":");
+
+        System.out.println(time);
     }
 }

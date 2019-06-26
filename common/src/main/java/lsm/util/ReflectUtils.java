@@ -1,13 +1,9 @@
 package lsm.util;
 
-import org.springframework.util.Assert;
-
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Objects;
+
+import org.springframework.util.Assert;
 
 /**
  * @author lishenming
@@ -17,30 +13,37 @@ import java.util.Objects;
 public class ReflectUtils {
 
     public static <T> Object getFieldValue(String fieldName, T t)
-            throws IntrospectionException, InvocationTargetException, IllegalAccessException {
+            throws IllegalAccessException {
         Assert.notNull(t);
         Assert.notNull(fieldName);
 
-        Class<?> clazz = t.getClass();
+        Field[] declaredFields = t.getClass().getDeclaredFields();
 
-        PropertyDescriptor pd = new PropertyDescriptor(fieldName, clazz);
+        for (Field field : declaredFields) {
+            if (Objects.equals(fieldName, field.getName())) {
+                field.setAccessible(true);
 
-        Method getMethod = pd.getReadMethod();
+                return field.get(t);
+            }
+        }
 
-        return getMethod.invoke(t);
+        return null;
     }
 
-    public static <T> void setFieldValue(T t, String fieldName, Object value) throws Exception{
+    public static <T> void setFieldValue(T t, String fieldName, Object value)
+            throws IllegalAccessException {
         Assert.notNull(t);
         Assert.hasText(fieldName);
 
-        Class<?> clazz = t.getClass();
+        Field[] declaredFields = t.getClass().getDeclaredFields();
 
-        PropertyDescriptor pd = new PropertyDescriptor(fieldName, clazz);
-
-        Method writeMethod = pd.getWriteMethod();
-
-        writeMethod.invoke(t, value);
+        for (Field field : declaredFields) {
+            if (Objects.equals(fieldName, field.getName())) {
+                field.setAccessible(true);
+                field.set(t, value);
+                return;
+            }
+        }
     }
 
     public static Field getField(Class<?> clazz, String name){

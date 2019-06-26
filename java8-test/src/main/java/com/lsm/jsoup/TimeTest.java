@@ -4,12 +4,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Random;
 
 import static java.time.temporal.TemporalAdjusters.*;
 
 @Slf4j
 public class TimeTest {
+
+    public static final String YYYYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
+    public static final DateTimeFormatter YYYYMMDDHHMMSS_FORMATTER = DateTimeFormatter.ofPattern(YYYYMMDDHHMMSS);
 
     /**
      * LocalDate代表一个IOS格式(yyyy-MM-dd)的日期
@@ -63,7 +68,8 @@ public class TimeTest {
          *  2. LocalTime localTime2 = LocalTime.of(21, 30, 59, 11001);
          *  3. LocalTime localTime = LocalTime.parse("21:30:23");
           */
-        LocalTime localTime = LocalTime.parse("21:30:23");
+        LocalTime localTime = LocalTime.parse("06:23");
+        LocalTime localTime2 = LocalTime.parse("6:23", DateTimeFormatter.ofPattern("H:mm"));
         /**
          * 通过这些方法访问其时、分、秒、纳秒
          */
@@ -87,6 +93,8 @@ public class TimeTest {
          */
         LocalTime localTimeLater   = localTime.plusHours(3);
 
+        int secondOfDay = localTime.toSecondOfDay();
+
         log.info("localTimeLater:{}", localTimeLater);
     }
 
@@ -99,6 +107,8 @@ public class TimeTest {
          *      3. LocalDateTime localDateTime = LocalDateTime.parse("2017-08-09T09:22:30.555");
          */
         LocalDateTime localDateTime = LocalDateTime.parse("2017-08-09T09:22:30.555");
+        LocalDateTime localDateTime2 = LocalDateTime.parse("2017-08-09 09:22:30", YYYYMMDDHHMMSS_FORMATTER);
+        String s = localDateTime.toString();
 
         log.info("localDateTime:{}", localDateTime);
     }
@@ -125,6 +135,11 @@ public class TimeTest {
         Date fromLocalTime =  Date.from(localTime.atDate(LocalDate.now()).atZone(zone).toInstant());
 
         log.info("fromInstant:{}, fromLocalDateTime:{}, fromLocalDate:{}, fromLocalTime:{}", fromInstant, fromLocalDateTime, fromLocalDate, fromLocalTime);
+
+        for (int i = 0; i < 100; i++) {
+            System.out.println(new Random().nextInt(10));
+        }
+
     }
 
 

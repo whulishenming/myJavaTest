@@ -10,11 +10,12 @@ import java.util.Map;
 
 public class EmptyUtils {
 
+    public static <T> boolean isNotEmpty(T t) {
+        return !isEmpty(t);
+    }
+
     /**
      * 判断是否为空
-     * @param t
-     * @param <T>
-     * @return
      */
     public static <T> boolean isEmpty(T t) {
 
