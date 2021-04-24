@@ -1,5 +1,7 @@
 package com.lsm.jsoup;
 
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -12,22 +14,32 @@ import java.util.Objects;
  **/
 public class MapTest {
 
+    private Map<Integer, String> map1 = new HashMap<>(10);
+
+    @Before
+    public void init() {
+        for (int i = 0; i < 10; i++) {
+            map1.put(i, "val_" + i);
+        }
+    }
+
     @Test
     public void testMap() {
-        Map<Integer, String> map1 = new HashMap<>(10);
-
-        for(int i=0; i<10; i++){
-            //putIfAbsent使得我们不用写是否为null值的检测语句；
-            map1.putIfAbsent(i, "val_"+i);
-        }
-
+        // 1 遍历
         map1.forEach((key, value) -> System.out.println("key=" + key + ",value=" + value));
 
-        map1.computeIfPresent(3, (num, val) -> val + num*10);
-        map1.computeIfPresent(11, (num, val) -> val + num*10);
+        // 2 getOrDefault 获取key值,如果key不存在则用defaultValue
+        Assert.assertEquals("val_1", map1.getOrDefault(1, "test1"));
+        Assert.assertEquals("test11", map1.getOrDefault(11, "test11"));
 
-        map1.computeIfAbsent(4, (num) ->  "test" + num);
-        map1.computeIfAbsent(14, (num) ->  "test" + num);
+        // 3 putIfAbsent
+
+
+        map1.computeIfPresent(3, (num, val) -> val + num * 10);
+        map1.computeIfPresent(11, (num, val) -> val + num * 10);
+
+        map1.computeIfAbsent(4, (num) -> "test" + num);
+        map1.computeIfAbsent(14, (num) -> "test" + num);
 
         map1.put(1, null);
         map1.computeIfAbsent(1, num -> "absent");
@@ -35,7 +47,6 @@ public class MapTest {
         System.out.println(map1);
 
         Map<String, String> map = new HashMap<>(10);
-
 
         // JDK8之前的实现方式
         boolean removed = false;
@@ -49,7 +60,7 @@ public class MapTest {
         boolean removedJdk8 = map.remove("key", "value");
 
         map.replaceAll((key, value) -> {
-            if ("test".equals(key)){
+            if ("test".equals(key)) {
                 return value + "test";
             }
             return value;
@@ -67,10 +78,7 @@ public class MapTest {
 
         map.merge("test2", "new Value", (oldValue, value) -> oldValue + "_" + value);
 
-
-
         map.computeIfPresent("test4", (key, oldValue) -> key + "_" + oldValue);
-
 
         System.out.println(map1);
 

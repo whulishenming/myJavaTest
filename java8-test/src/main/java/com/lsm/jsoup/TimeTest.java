@@ -5,7 +5,11 @@ import org.junit.Test;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import static java.time.temporal.TemporalAdjusters.*;
@@ -28,7 +32,7 @@ public class TimeTest {
          *  2. LocalDate date = LocalDate.parse("2017-05-02");
          *  3. LocalDate date = LocalDate.now();
           */
-        LocalDate date = LocalDate.of(2017, 5, 2);
+        LocalDate date = LocalDate.of(2020, 3, 9);
 
         int year = date.getYear();
         int monthValue = date.getMonthValue();
@@ -37,6 +41,9 @@ public class TimeTest {
         int dayOfYear = date.getDayOfYear();
         int lengthOfMonth = date.lengthOfMonth();
         LocalDate newDate = date.withDayOfMonth(15).plusDays(4).minusDays(2);
+
+        long start = LocalDate.of(2020, 1, 6).getLong(ChronoField.EPOCH_DAY);
+        long epochDay = date.getLong(ChronoField.EPOCH_DAY);
 
         log.info("year:" + year + "--month:" + monthValue + "--day:" + dayOfMonth);
         log.info("date:" + date.toString());
@@ -51,6 +58,8 @@ public class TimeTest {
         log.info("lastDayOfYear:{}",date.with(lastDayOfYear())); // 2017-12-31
         log.info("firstDayOfNextYear:{}",date.with(firstDayOfNextYear())); // 2018-01-01
         log.info("firstInMonth:{}",date.with(firstInMonth(DayOfWeek.MONDAY))); // 2017-05-01
+        TemporalField fieldISO = WeekFields.of(Locale.FRANCE).dayOfWeek();
+        log.info("firstInWeek:{}",date.with(fieldISO, 1)); //
         log.info("lastInMonth:{}",date.with(lastInMonth(DayOfWeek.MONDAY))); // 2017-05-29
         log.info("dayOfWeekInMonth:{}",date.with(dayOfWeekInMonth(2, DayOfWeek.MONDAY))); // 2017-05-08
         log.info("nextMONDAY:{}",date.with(next(DayOfWeek.MONDAY))); // 2017-05-08
@@ -111,6 +120,23 @@ public class TimeTest {
         String s = localDateTime.toString();
 
         log.info("localDateTime:{}", localDateTime);
+    }
+
+    @Test
+    public void toTime(){
+        LocalDateTime now = LocalDateTime.now();
+        Long second = now.toEpochSecond(ZoneOffset.of("+8"));
+
+        log.info("second:{}", second);
+        //获取毫秒数
+        Long milliSecond = now.toInstant(ZoneOffset.of("+8")).toEpochMilli();
+
+        log.info("milliSecond:{}", milliSecond);
+
+        LocalDateTime localDateTime = LocalDateTime.ofEpochSecond(milliSecond / 1000, (int) (milliSecond % 1000) * 1000, ZoneOffset.of("+8"));
+
+        System.out.println(localDateTime);
+
     }
 
     /**

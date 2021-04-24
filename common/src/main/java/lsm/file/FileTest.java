@@ -5,14 +5,14 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import java.io.*;
+import java.util.Base64;
 
 /**
  * Created by za-lishenming on 2017/5/25.
  */
 public class FileTest {
 
-    public String file2byte(String filePath) throws IOException {
-        String buffer = null;
+    public String file2byte(String filePath) {
         FileInputStream fis = null;
         ByteArrayOutputStream bos = null;
         try {
@@ -24,18 +24,24 @@ public class FileTest {
             while ((n = fis.read(b)) != -1) {
                 bos.write(b, 0, n);
             }
-            fis.close();
-            bos.close();
-            BASE64Encoder encoder = new BASE64Encoder();
-            buffer = encoder.encode(bos.toByteArray());// 返回Base64编码过的字节数组字符串
+            return Base64.getEncoder().encodeToString(bos.toByteArray());
 
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            fis.close();
-            bos.close();
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+                if (bos != null) {
+                    bos.close();
+                }
+            } catch (IOException e2) {
+                e2.printStackTrace();
+            }
         }
-        return buffer;
+
+        return null;
     }
 
 
@@ -75,14 +81,38 @@ public class FileTest {
         }
     }
 
+    public String readFromTextFile(String pathname){
+
+        try {
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(new File(pathname)));
+            BufferedReader br = new BufferedReader(reader);
+            String line;
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            while((line = br.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+
+            return stringBuilder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Test
+    public void testReadFromTextFile() {
+        String s = readFromTextFile("/Users/lishenming/Downloads/app接口文档.txt");
+        System.out.println( s);
+    }
+
     @Test
     public void test() throws IOException {
-        String buffer = file2byte("C:\\Users\\za-lishenming\\Downloads\\P441704001774.tiff");
+        String buffer = file2byte("/Users/lishenming/Downloads/app接口文档.txt");
 
-        byte2File(buffer, "d:\\Users\\za-lishenming\\Downloads", "33.tiff");
+        byte2File(buffer, "/Users/lishenming/Downloads", "app接口文档2.txt");
     }
 
-    public void test2() {
-
-    }
 }

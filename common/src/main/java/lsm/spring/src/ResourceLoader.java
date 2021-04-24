@@ -1,5 +1,7 @@
 package lsm.spring.src;
 
+import org.springframework.context.annotation.Scope;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -8,8 +10,8 @@ import java.util.Properties;
  * Created by lishenming on 2017/3/25.
  *
  */
-public class ResourceLoader
-{
+
+public class ResourceLoader {
     public static void main(String[] args) throws IOException
     {
         ResourceLoader resourceLoader = new ResourceLoader();

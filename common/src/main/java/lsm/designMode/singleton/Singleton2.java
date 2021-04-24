@@ -6,6 +6,17 @@ package lsm.designMode.singleton;
  */
 public class Singleton2 {
 
+    // 可以有自己的属性
+    private String context;
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
     private Singleton2() {
     }
 

@@ -1,0 +1,37 @@
+1. associating the alias alias1 with index test1
+POST /_aliases
+{
+    "actions" : [
+        { "add" : { "index" : "test1", "alias" : "alias1" } }
+    ]
+}
+2. removing that same alias
+POST /_aliases
+{
+    "actions" : [
+        { "remove" : { "index" : "test1", "alias" : "alias1" } }
+    ]
+}
+3. batch
+POST /_aliases
+{
+    "actions" : [
+        { "remove" : { "index" : "test1", "alias" : "alias1" } },
+        { "add" : { "index" : "test2", "alias" : "alias1" } }
+    ]
+}
+4.指定多个index对应一个alias
+POST /_aliases
+{
+    "actions" : [
+        { "add" : { "indices" : ["test1", "test2"], "alias" : "alias1" } }
+    ]
+}
+5. glob pattern
+POST /_aliases
+{
+    "actions" : [
+        { "add" : { "index" : "test*", "alias" : "all_test_indices" } }
+    ]
+}
+

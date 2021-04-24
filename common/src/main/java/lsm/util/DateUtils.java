@@ -2,6 +2,8 @@ package lsm.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +37,11 @@ public class DateUtils {
 
     public static final String YYYYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
     public static final DateTimeFormatter YYYYMMDDHHMMSS_FORMATTER = DateTimeFormatter.ofPattern(YYYYMMDDHHMMSS);
+
+    public static int getYear(String date, String formatter) {
+        LocalDateTime dateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern(formatter));
+        return dateTime.getYear();
+    }
 
     public static Date getDateAfterDay(Date date, int day){
         Calendar calendar =Calendar.getInstance();

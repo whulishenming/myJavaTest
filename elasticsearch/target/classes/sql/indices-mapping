@@ -1,0 +1,36 @@
+https://www.elastic.co/guide/en/elasticsearch/reference/7.3/mapping.html
+// 1. 新建mapping
+PUT users
+{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "keyword",
+        "null_value": "NULL"
+      },
+      "age": {
+        "type": "long"
+      },
+      "mobile": {
+        "type": "keyword"
+      },
+      "createTime": {
+        "type": "text",
+        "index": false
+      }
+    }
+  }
+}
+
+// 2. 给已存在的mapping增加新字段
+PUT /users/_mapping
+{
+  "properties": {
+    "birthday": {
+      "type": "keyword"
+    }
+  }
+}
+
+// 3. 查询mapping
+GET /users/_mapping

@@ -1,6 +1,7 @@
 package lsm.concurrent.threadPool;
 
 import org.junit.Test;
+import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,16 +24,21 @@ public class ExecutorTest {
                 }
             });
 
+    ThreadPoolExecutor threadPoolExecutor2 = new ThreadPoolExecutor(2, 2, 5, TimeUnit.SECONDS,
+            new ArrayBlockingQueue<>(10), new CustomizableThreadFactory("DelayingQueue"), new ThreadPoolExecutor.CallerRunsPolicy());
+
     public static void main(String[] args) {
         System.out.println(Thread.currentThread().getName() + "-Start");
         // ExecutorService executorService = Executors.newFixedThreadPool(5);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        Runnable runnable = (() -> test());
+        Runnable runnable = (ExecutorTest::test);
         executorService.execute(runnable);
 
         // executorService.shutdown();
         System.out.println(Thread.currentThread().getName() + "-End");
+
+
     }
 
     @Test

@@ -1,0 +1,45 @@
+// 1. 创建模板（如果该模板存在，则直接覆盖）
+PUT /_template/user_template
+{
+    "index_patterns" : ["user_test*"],
+    "order" : 1,
+    "settings" : {
+    	"number_of_shards": 1,
+        "number_of_replicas" : 2
+    },
+    "mappings": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "null_value": "NULL"
+          },
+          "age": {
+            "type": "long"
+          },
+          "mobile": {
+            "type": "keyword"
+          },
+          "createTime": {
+            "type": "text",
+            "index": false
+          }
+        }
+      }
+}
+
+// 2. dynamic_templates
+PUT my_index
+{
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "strings_as_keywords": {
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      }
+    ]
+  }
+}
