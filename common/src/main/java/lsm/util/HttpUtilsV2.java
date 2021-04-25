@@ -1,9 +1,11 @@
 package lsm.util;
 
-import com.alibaba.fastjson.JSONObject;
-import com.google.common.base.Charsets;
-import com.google.common.collect.Lists;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -19,11 +21,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Charsets;
+import com.google.common.collect.Lists;
+import com.lsm.utils.EmptyUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author lishenming
@@ -38,7 +41,7 @@ public class HttpUtilsV2 {
 
     public static CloseableHttpClient getProxyHttpClient(int connectTimeOut, int readTimeOut) {
         return HttpClients.custom().setDefaultRequestConfig(RequestConfig.custom().setConnectTimeout(connectTimeOut)
-                .setSocketTimeout(readTimeOut).setProxy(new HttpHost("host", 8080)).build()).build();
+            .setSocketTimeout(readTimeOut).setProxy(new HttpHost("host", 8080)).build()).build();
     }
 
     public static String sendPostForm(CloseableHttpClient httpClient, String url, Map<String, String> paramMap) {
@@ -58,14 +61,14 @@ public class HttpUtilsV2 {
 
         } catch (IOException e) {
             log.error("http sendPostForm error caused by Exception ,url={}, param={}", url,
-                    JSONObject.toJSONString(paramMap), e);
+                JSONObject.toJSONString(paramMap), e);
         }
 
         return null;
     }
 
     public static String sendPostJson(CloseableHttpClient httpClient, String url, String postJsonString,
-            Map<String, String> headerMap) {
+        Map<String, String> headerMap) {
         try {
             HttpPost request = new HttpPost(url);
 
@@ -90,7 +93,7 @@ public class HttpUtilsV2 {
     }
 
     public static String sendGet(CloseableHttpClient httpClient, String url, Map<String, String> paramMap,
-            Map<String, String> headerMap) {
+        Map<String, String> headerMap) {
         try {
             if (!EmptyUtils.isEmpty(paramMap)) {
                 url = url + "?";
@@ -114,7 +117,8 @@ public class HttpUtilsV2 {
 
             return EntityUtils.toString(httpEntity, Charsets.UTF_8.name());
         } catch (Exception e) {
-            log.error("http sendPostJson error caused by Exception ,url={}, param={}", url, JSONObject.toJSONString(paramMap), e);
+            log.error("http sendPostJson error caused by Exception ,url={}, param={}", url,
+                JSONObject.toJSONString(paramMap), e);
         }
 
         return null;

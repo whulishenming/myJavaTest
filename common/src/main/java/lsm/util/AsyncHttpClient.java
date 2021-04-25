@@ -16,6 +16,7 @@ import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.util.EntityUtils;
 
 import com.google.common.base.Charsets;
+import com.lsm.utils.EmptyUtils;
 
 /**
  * @author lishenming

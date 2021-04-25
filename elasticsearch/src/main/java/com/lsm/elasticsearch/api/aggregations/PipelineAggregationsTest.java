@@ -13,8 +13,6 @@ import org.junit.Test;
 
 import com.lsm.elasticsearch.ElasticSearchBaseTest;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author lishenming
  * @version 1.0
@@ -23,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
  *       以兄弟聚合（同级聚合）的结果作为输入，对兄弟聚合的结果进行聚合计算。计算出一个新的聚合结果，结果与兄弟聚合的结果同级
  **/
 
-@Slf4j
 public class PipelineAggregationsTest extends ElasticSearchBaseTest {
 
     /**

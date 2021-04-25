@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2019/11/26 10:02 度量聚合
  **/
 
-@Slf4j
 public class MetricsAggregationTest extends ElasticSearchBaseTest {
 
     /**

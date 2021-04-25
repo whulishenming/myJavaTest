@@ -3,13 +3,14 @@ package lsm.aviator;
 import java.time.LocalDate;
 import java.util.*;
 
-import lsm.util.DateUtils;
-import lsm.util.EmptyUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.googlecode.aviator.AviatorEvaluator;
+import com.lsm.utils.EmptyUtils;
+
+import lsm.util.DateUtils;
 
 /**
  * @author lishenming
@@ -42,15 +43,15 @@ public class AviatorTest {
         env.put("email", "killme2008@gmail.com");
 
         DomainDemo foo = new DomainDemo(100, 3.14f, new Date(),
-                Arrays.asList(LocalDate.parse("2019-10-10"), LocalDate.parse("2018-01-01"), LocalDate.parse("2017-01-01")));
+            Arrays.asList(LocalDate.parse("2019-10-10"), LocalDate.parse("2018-01-01"), LocalDate.parse("2017-01-01")));
         env.put("foo", foo);
 
-        Map<String,Object> content = new HashMap<>(2);
-        content.put("name","emus");
-        content.put("age",12);
-        List<Map<String,Object>> list1 = new ArrayList<>(1);
+        Map<String, Object> content = new HashMap<>(2);
+        content.put("name", "emus");
+        content.put("age", 12);
+        List<Map<String, Object>> list1 = new ArrayList<>(1);
         list1.add(content);
-        env.put("content",list1);
+        env.put("content", list1);
     }
 
     @Test

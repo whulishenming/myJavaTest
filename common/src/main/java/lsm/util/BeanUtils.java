@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
+import com.lsm.utils.EmptyUtils;
+
 /**
  * @author lishenming
  * @version 1.0
@@ -15,10 +17,13 @@ public class BeanUtils {
     /**
      * 属性copy,不存在的属性直接跳过
      *
-     * @param source 来源
-     * @param target 目的地
+     * @param source
+     *            来源
+     * @param target
+     *            目的地
      */
-    public static void copyProperties(Object source, Object target, List<String> ignoreProperties) throws IllegalAccessException {
+    public static void copyProperties(Object source, Object target, List<String> ignoreProperties)
+        throws IllegalAccessException {
         if (source == null) {
             return;
         }
