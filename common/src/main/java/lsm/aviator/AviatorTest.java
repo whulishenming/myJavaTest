@@ -3,9 +3,6 @@ package lsm.aviator;
 import java.time.LocalDate;
 import java.util.*;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lsm.util.DateUtils;
 import lsm.util.EmptyUtils;
 import org.junit.Assert;

@@ -1,4 +1,4 @@
-package lsm.util;
+package com.lsm.utils;
 
 import java.util.Collection;
 import java.util.Map;
