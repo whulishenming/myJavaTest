@@ -1,3 +1,11 @@
 /.idea
-/target
-test.iml
+target
+
+# package
+*.jar
+*.war
+
+
+# idea
+.idea
+*.iml
