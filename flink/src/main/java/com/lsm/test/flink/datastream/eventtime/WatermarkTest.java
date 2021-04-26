@@ -6,10 +6,10 @@ import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
-import org.apache.flink.streaming.api.windowing.time.Time;
+import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
+import org.apache.flink.util.Collector;
 
-import com.lsm.test.flink.datastream.util.KafkaSourceUtils;
+import com.lsm.test.flink.datastream.util.SocketSourceUtils;
 import com.lsm.test.flink.vo.Order;
 import com.lsm.utils.DateUtils;
 
@@ -29,15 +29,23 @@ public class WatermarkTest {
                 .withTimestampAssigner(new SerializableTimestampAssigner<Order>() {
                     @Override
                     public long extractTimestamp(Order order, long recordTimestamp) {
-                        return DateUtils.parseToTimeMillis(order.getCreateTime(), DateUtils.YYYYMMDDHHMMSS_FORMATTER);
+                        Long timeMillis =
+                            DateUtils.parseToTimeMillis(order.getCreateTime(), DateUtils.YYYYMMDDHHMMSS_FORMATTER);
+                        System.out.printf("recordTimestamp={%s}, timeMillis={%s}%n", recordTimestamp, timeMillis);
+                        return timeMillis;
                     }
                 });
 
         DataStream<Order> dataStream =
-            KafkaSourceUtils.buildDataStream(env).assignTimestampsAndWatermarks(watermarkStrategy);
+            SocketSourceUtils.buildDataStream(env, "localhost", 111).assignTimestampsAndWatermarks(watermarkStrategy);
 
-        dataStream.keyBy(Order::getUserName).window(TumblingEventTimeWindows.of(Time.seconds(10))).maxBy("amount")
-            .print();
+        dataStream.keyBy(Order::getUserName).process(new KeyedProcessFunction<String, Order, Order>() {
+            @Override
+            public void processElement(Order order, Context ctx, Collector<Order> out) throws Exception {
+                System.out.printf("currentWatermark={%s}%n", ctx.timerService().currentWatermark());
+                out.collect(order);
+            }
+        }).print();
 
         env.execute();
     }

@@ -27,12 +27,18 @@ public class TimerTest {
 
         DataStream<Order> dataStream = SocketSourceUtils.buildDataStream(env, "localhost", 111);
 
-        dataStream.keyBy(Order::getUserName).process(new MyKeyedProcessFunction()).print();
+        dataStream.keyBy(Order::getUserName).process(new MyKeyedProcessFunction(10 * 1000L)).print();
 
         env.execute();
     }
 
     public static class MyKeyedProcessFunction extends KeyedProcessFunction<String, Order, Tuple2<String, Long>> {
+        private long delay;
+
+        public MyKeyedProcessFunction(long delay) {
+            this.delay = delay;
+        }
+
         private ValueState<Double> priceState;
 
         private ValueState<Long> timerState;
@@ -48,7 +54,7 @@ public class TimerTest {
             }
 
             if (value.getAmount() > lastPrice && timer == null) {
-                long ts = ctx.timerService().currentProcessingTime() + 10 * 1000L;
+                long ts = ctx.timerService().currentProcessingTime() + delay;
                 ctx.timerService().registerProcessingTimeTimer(ts);
                 timerState.update(ts);
 

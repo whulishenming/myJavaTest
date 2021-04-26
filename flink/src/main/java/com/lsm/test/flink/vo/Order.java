@@ -23,6 +23,8 @@ public class Order {
     @Column(name = "user_name")
     private String userName;
 
+    private Long userId;
+
     @Column(name = "amount")
     private double amount;
 
